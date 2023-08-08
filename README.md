@@ -145,7 +145,7 @@ free -h
 [Note That:]() Remember that command syntax might vary slightly between different systems, so it's important to consult the documentation or built-in help (`<command> --help` or man `<command>`) for specific details on each command.
 
 
-###  A Command Interpreter for an Airbnb Clone project
+## 3. A Command Interpreter for an Airbnb Clone project
 
 For an `Airbnb Clone project`, you might want to consider using a `command-line interface` (CLI) to interact with your application. The CLI could provide functionalities for managing properties, bookings, users, and other aspects of your project.
 
