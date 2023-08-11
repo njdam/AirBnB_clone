@@ -59,5 +59,4 @@ class FileStorage:
                     self.new(eval(class_name)(**o))
 
         except FileNotFoundError:
-            # This raise Error if file is not find.
-            raise FileNotFoundError("File not found: {}".format(FileStorage.__file_path))
+            pass
