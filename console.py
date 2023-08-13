@@ -40,7 +40,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """
-        Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id.
+        This command creates a new instance of BaseModel, saves it (to the JSON file) and prints the id.
+
+        Usage: create <class>
         """
         args = split(arg)
         if len(args) == 0:
@@ -50,6 +52,26 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(eval(args[0])().id)
             storage.save()
+
+    def do_show(self, arg):
+        """
+        This command prints the string representation of an instance based on the class name and id.
+        
+        Usage: show <class> <id>
+        """
+        args = split(arg)
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            key = args[0] + "." + args[1]
+            if key in storage.all():
+                print(storage.all()[key])
+            else:
+                print("** no instance found **")
 
 
 if __name__ == "__main__":
