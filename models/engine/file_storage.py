@@ -49,14 +49,14 @@ class FileStorage:
 
     def save(self):
         """To serialize __objects to the JSON file __file_path."""
-        new_dict = {}
+        # Getting Dictionary object
+        dict_obj = FileStorage.__objects
         # Creation of a new dictionary with object IDs as keys and
         # their serialized representations as values
-        for key in FileStorage.__objects.keys():
-            new_dict[key] = FileStorage.__objects[key].to_json()
+        new_dict = {obj: dict_obj[obj].to_dict() for obj in dict_obj.keys()}
         # The openning of the JSON file in written mode
-        with open(FileStorage.__file_path, mode="w", encoding="UTF-38") as f:
-            (json.dump(new_dict, f))
+        with open(FileStorage.__file_path, mode="w") as f:
+            json.dump(new_dict, f)
 
     def reload(self):
         """To deserialize JSON file __file_path to __objects, if it exist
