@@ -5,10 +5,10 @@ This module contains the entry point of the command interpreter for the AirBnB c
 """
 
 import cmd
+import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
-
 
 
 class HBNBCommand(cmd.Cmd):
@@ -17,6 +17,7 @@ class HBNBCommand(cmd.Cmd):
     """
 
     prompt = "(hbnb) "
+    __classes = ["BaseModel"]
 
     def do_quit(self, arg):
         """
@@ -41,15 +42,15 @@ class HBNBCommand(cmd.Cmd):
         """
         Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id.
         """
-        if arg == "":
+        args = split(arg)
+        if len(args) == 0:
             print("** class name missing **")
-        elif arg != "BaseModel":
+        elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            new_instance = BaseModel()
-            new_instance.save()
-            print(new_instance.id)
-    
+            print(eval(args[0])().id)
+            storage.save()
+
 
 if __name__ == "__main__":
     """
