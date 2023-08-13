@@ -63,9 +63,9 @@ class FileStorage:
         Otherwise, do nothing.
         """
         try:
-            with open(FileStorage.__file_path, mode="r", encoding="UTF-8") as f:
+            with open(FileStorage.__file_path, mode="r") as f:
                 # This load JSON data from file
-                loaded_obj = json.load(f)
+                ldd_obj = json.load(f)
                 from models.base_model import BaseModel
                 from models.user import User
                 from models.state import State
@@ -74,16 +74,17 @@ class FileStorage:
                 from models.place import Place
                 from models.review import Review
 
-                class_list = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+                class_list = ["BaseModel", "User", "State", "City"]
+                class_list += ["Amenity", "Place", "Review"]
 
                 # This iterate over the values in the loaded dictionary
-                for key, value in loaded_obj.items():
+                for key, value in ldd_obj.items():
                     if value.get("__class__") in class_list:
                         # This retrieve a class name from '__class__' key
                         cls_name = value.get("__class__")
                         # This create a new instance of class using eval()
                         # & pass remaining dictionary as keward arguments
-                        self.__objects[key] = eval(str(cls_name))(loaded_obj[key])
+                        self.__objects[key] = eval(str(cls_name))(ldd_obj[key])
 
-        except FileNotFoundError:
+        except Exception:
             pass
