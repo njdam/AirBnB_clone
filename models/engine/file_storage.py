@@ -27,7 +27,7 @@ class FileStorage:
     classes = {
             "BaseModel": BaseModel,
             "User": User,
-            "State": State
+            "State": State,
             "City": City,
             "Amenity": Amenity,
             "Place": Place,
@@ -74,8 +74,7 @@ class FileStorage:
                 from models.place import Place
                 from models.review import Review
 
-                class_list = ["BaseModel", "User", "State", "City",
-                        "Amenity", "Place", "Review"]
+                class_list = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
 
                 # This iterate over the values in the loaded dictionary
                 for key, value in loaded_obj.items():
@@ -86,5 +85,5 @@ class FileStorage:
                         # & pass remaining dictionary as keward arguments
                         self.__objects[key] = eval(str(cls_name))(loaded_obj[key])
 
-        except:
+        except FileNotFoundError:
             pass
