@@ -4,6 +4,12 @@
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -18,13 +24,23 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
+    classes = {
+            "BaseModel": BaseModel,
+            "User": User,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Place": Place,
+            "Review": Review
+            }
+
     def all(self):
         """A function to return dictionary __objects."""
         return (FileStorage.__objects)
 
     def new(self, obj):
         """Function to set in __objects obj with key <obj_class_name>.id"""
-        # For getting the class name of the object
+        # For getting the class name of the object or type(obj).__name__
         class_name = obj.__class__.__name__
         # This is creation of key for the object in the __objects dictionary
         key = "{}.{}".format(class_name, obj.id)
@@ -33,30 +49,42 @@ class FileStorage:
 
     def save(self):
         """To serialize __objects to the JSON file __file_path."""
-        # For getting dictionary objects
+        # Getting Dictionary object
         dict_obj = FileStorage.__objects
         # Creation of a new dictionary with object IDs as keys and
         # their serialized representations as values
-        dictobj = {obj: dict_obj[obj].to_dict() for obj in dict_obj.keys()}
+        new_dict = {obj: dict_obj[obj].to_dict() for obj in dict_obj.keys()}
         # The openning of the JSON file in written mode
-        with open(FileStorage.__file_path, "w") as f:
-            json.dump(dictobj, f)
+        with open(FileStorage.__file_path, mode="w") as f:
+            json.dump(new_dict, f)
 
     def reload(self):
-        """To deserialize JSON file __file_path to __objects, if it exist"""
+        """To deserialize JSON file __file_path to __objects, if it exist
+        Otherwise, do nothing.
+        """
         try:
-            with open(FileStorage.__file_path) as f:
+            with open(FileStorage.__file_path, mode="r") as f:
                 # This load JSON data from file
-                dictobj = json.load(f)
-                # This iterate over the values in the loaded dictionary
-                for o in dictobj.values():
-                    # This retrieve a class name from '__class__' key
-                    class_name = o["__class__"]
-                    # This remove the '__class__' key from the dictionary
-                    del o["__class__"]
-                    # This create a new instance of class using eval() and
-                    # pass the remaining dictionary as keward arguments
-                    self.new(eval(class_name)(**o))
+                ldd_obj = json.load(f)
+                from models.base_model import BaseModel
+                from models.user import User
+                from models.state import State
+                from models.city import City
+                from models.amenity import Amenity
+                from models.place import Place
+                from models.review import Review
 
-        except FileNotFoundError:
+                class_list = ["BaseModel", "User", "State", "City"]
+                class_list += ["Amenity", "Place", "Review"]
+
+                # This iterate over the values in the loaded dictionary
+                for key, value in ldd_obj.items():
+                    if value.get("__class__") in class_list:
+                        # This retrieve a class name from '__class__' key
+                        cls_name = value.get("__class__")
+                        # This create a new instance of class using eval()
+                        # & pass remaining dictionary as keward arguments
+                        self.__objects[key] = eval(str(cls_name))(ldd_obj[key])
+
+        except Exception:
             pass
