@@ -33,6 +33,55 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    def do_create(self, arg):
+        """
+        Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id.
+        """
+        if not arg:
+            print("** class name missing **")
+        else:
+            print("** class doesn't exist **")
+
+    def do_show(self, arg):
+        """
+        This command prints the string representation of an instance based on the class name and id.
+        """
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            print("** no instance found **")
+
+    def do_destroy(self, arg):
+        """
+        This command deletes an instance based on the class name and id.
+        """
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            print("** no instance found **")
+
+    def do_all(self, arg):
+        """
+        This command prints all string representation of all instances based or not on the class name.
+        """
+        args = arg.split()
+        if not args:
+            print("** class name missing **")
+        elif args[0] != "BaseModel":
+            print("** class doesn't exist **")
+        else:
+            print("[]")
+    
 
 if __name__ == "__main__":
     """
