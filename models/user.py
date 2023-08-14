@@ -11,7 +11,3 @@ class User(BaseModel):
     password = ""
     first_name = ""
     last_name = ""
-
-    def __init__(self, *args, **kwargs):
-        """A function to initialise User instance."""
-        super().__init__(self, *args, **kwargs)
