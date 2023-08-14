@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-
 """
-This module contains the entry point of the command interpreter for the AirBnB clone project.
+This module contains the entry point of the command interpreter
+for the AirBnB clone project.
 """
 
 import cmd
@@ -13,15 +13,16 @@ from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     """
-    This class contains the entry point of the command interpreter for the AirBnB clone project.
+    This class contains the entry point of the command interpreter
+    for the AirBnB clone project.
     """
 
     prompt = "(hbnb) "
-    __classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+    __classes = ["BaseModel", "User", "State", "City", "Amenity"]
+    __classes += ["Place", "Review"]
 
     def do_quit(self, arg):
-        """
-        Quit command to exit the program.
+        """Quit command to exit the program
         """
         return True
 
@@ -33,14 +34,18 @@ class HBNBCommand(cmd.Cmd):
 
     def emptyline(self):
         """
-        This method is called when an empty line is entered in response to the prompt.
-        It's to make sure that an empty line + ENTER doesn't execute the last entered command.
+        This method is called when an empty line is entered in response
+        to the prompt.
+
+        It's to make sure that an empty line + ENTER doesn't execute
+        the last entered command.
         """
         pass
 
     def do_create(self, arg):
         """
-        This command creates a new instance of BaseModel, saves it (to the JSON file) and prints the id.
+        This command creates a new instance of BaseModel, saves it
+        (to the JSON file) and prints the id.
 
         Usage: create <class>
         """
@@ -55,8 +60,9 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        This command prints the string representation of an instance based on the class name and id.
-        
+        This command prints the string representation of an instance
+        based on the class name and id.
+
         Usage: show <class> <id>
         """
         args = split(arg)
@@ -75,7 +81,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_destroy(self, arg):
         """
-        This command deletes an instance based on the class name and id (save the change into the JSON file).
+        This command deletes an instance based on the class name and
+        id (save the change into the JSON file).
 
         Usage: destroy <class> <id>
         """
@@ -96,7 +103,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-        This command prints all string representation of all instances based or not on the class name.
+        This command prints all string representation of all instances
+        based or not on the class name.
 
         Usage: all <class> or all
         """
@@ -106,11 +114,20 @@ class HBNBCommand(cmd.Cmd):
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         else:
-            print([str(value) for key, value in storage.all().items() if key.startswith(args[0])])
+            result = [
+                    str(value) for key, value in storage.all().items()
+                    if key.startswith(args[0])
+                    ]
+            print(result)
+            """
+            print([str(value) for key,
+                value in storage.all().items() if key.startswith(args[0])])
+            """
 
     def do_update(self, arg):
         """
-        This command updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).
+        This command updates an instance based on the class name and id by
+        adding or updating attribute (save the change into the JSON file).
 
         Usage: update <class> <id> <attribute name> "<attribute value>"
         """
@@ -131,7 +148,6 @@ class HBNBCommand(cmd.Cmd):
             key = args[0] + "." + args[1]
             setattr(storage.all()[key], args[2], args[3].strip("\""))
             storage.save()
-        
 
 
 if __name__ == "__main__":
