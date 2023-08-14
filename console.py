@@ -9,6 +9,12 @@ import re
 from shlex import split
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -54,6 +60,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+        elif args[0] == "User":
+            user = User()
+            for pair in args[1:]:
+                key, value = pair.split('=')
+                setattr(user, key, value)
+            user.save()
+            print(user.id)
         else:
             print(eval(args[0])().id)
             storage.save()
@@ -72,6 +85,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
+        elif args[0] == "User":
+            self.do_show("User " + args[1])
         else:
             key = args[0] + "." + args[1]
             if key in storage.all():
@@ -93,6 +108,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
+        elif args[0] == "User":
+            self.do_destroy("User " + args[1])
         else:
             key = args[0] + "." + args[1]
             if key in storage.all():
@@ -113,6 +130,8 @@ class HBNBCommand(cmd.Cmd):
             print([str(value) for value in storage.all().values()])
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+        elif args[0] == "User":
+            self.do_all("User")
         else:
             result = [
                     str(value) for key, value in storage.all().items()
@@ -144,6 +163,8 @@ class HBNBCommand(cmd.Cmd):
             print("** attribute name missing **")
         elif len(args) == 3:
             print("** value missing **")
+        elif args[0] == "User":
+            self.do_update("User " + args[1], *args[2:])
         else:
             key = args[0] + "." + args[1]
             setattr(storage.all()[key], args[2], args[3].strip("\""))
