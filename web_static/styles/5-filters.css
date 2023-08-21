@@ -40,9 +40,9 @@ button {
 	width: 20%;
 	border: none;
 	border-radius: 4px;
-	border: 10px auto;
+	margin: 10px auto;
 	float: right;
-	margin-right: 30px;
+	margin-right: 20px;
 }
 
 button:hover {

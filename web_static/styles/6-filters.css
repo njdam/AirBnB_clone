@@ -36,7 +36,7 @@ h4 {
 ul, li {
     list-style-type: none;
     margin: 10px auto;
-    line-height: 10px auto;
+    line-height: 10px;
 }
 
 button {
@@ -63,8 +63,8 @@ button:hover {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     display: none;
-    margin-top: -4px;
-    margin-left: -40.5px;
+    margin-top: 0px;
+    margin-left: -42px;
     position: relative;
 }
 
@@ -73,6 +73,5 @@ div.locations:hover ul.popover {
 }
 
 div.amenities:hover ul.popover {
-    max-width: 60%;
     display: block;
 }
