@@ -6,25 +6,20 @@
     border-radius: 4px;
 }
 
-.locations {
+.locations, .amenities {
     height: 100%;
     width: 25%;
-    border-right: 1px solid #DDDDDD;
-    display: inline-block;
     margin-left: 40px;
+    display: inline-table;
 }
 
-.amenities {
-    height: 100%;
-    width: 25%;
-    display: inline-block;
-    margin-left: 40px;
-    position: fixed;
+.locations {
+    border-right: 1px solid #DDDDDD;
 }
 
 h3 {
     font-weight: 600;
-    margin-top: 15px;
+    margin-top: 14px;
 }
 
 h4 {
@@ -49,7 +44,7 @@ button {
     border-radius: 4px;
     margin: 10px auto;
     float: right;
-    margin-right: 30px;
+    margin-right: 20px;
     position: relative;
 }
 
@@ -63,15 +58,16 @@ button:hover {
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     display: none;
-    margin-top: 0px;
-    margin-left: -42px;
+    margin-top: -4.5px;
     position: relative;
 }
 
 div.locations:hover ul.popover {
+    margin-left: -42px;
     display: block;
 }
 
 div.amenities:hover ul.popover {
+    margin-left: -45px;
     display: block;
 }
