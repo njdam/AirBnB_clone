@@ -6,7 +6,7 @@
     border-radius: 4px;
 }
 
-.locations, .amenities {
+.filters .locations, .filters .amenities {
     height: 100%;
     width: 25%;
     margin-left: 40px;
@@ -57,17 +57,18 @@ button:hover {
     width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
+    z-index: 1000;
     display: none;
-    margin-top: -4.5px;
+    margin-top: -3px;
     position: relative;
 }
 
 div.locations:hover ul.popover {
-    margin-left: -42px;
+    margin-left: -41px;
     display: block;
 }
 
-div.amenities:hover ul.popover {
+.filters div.amenities:hover ul.popover {
     margin-left: -45px;
     display: block;
 }

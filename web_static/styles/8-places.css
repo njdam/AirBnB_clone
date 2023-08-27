@@ -1,12 +1,15 @@
 .places {
         font-size: 30px;
         padding-left: 30px;
-        text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+        justify-content: center;
 }
 
 .places h1 {
         text-align: left;
-        margin-left: 15px;
+	padding-right: 92%;
+        margin-left: 30px;
         margin-bottom: 0px;
 }
 
@@ -16,14 +19,18 @@
         margin: 20px;
         border: 1px solid #FF5A5F;
         border-radius: 4px;
-        display: inline-table;
-        justify-content: center;
+	text-align: left;
         vertical-align: top;
         position: relative;
 }
 
+.places article > * {
+	flex: 1;
+}
+
 article h2 {
         font-size: 30px;
+	text-align: center;
         margin-top: 10px;
 }
 
