@@ -10,3 +10,14 @@ body {
 	max-width: 1000px;
 	margin: 30px auto;
 }
+
+@media screen and (min-width: 80rem) {
+	.container {
+		margin: 1em 2em;
+		column-count: 1;
+		column-width: 10em;
+	}
+	body {
+		font-size: 12px auto;
+	}
+}
