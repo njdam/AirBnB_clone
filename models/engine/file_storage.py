@@ -13,26 +13,15 @@ from models.review import Review
 
 
 class FileStorage:
-    """
-    A class FileStorage that serializes instances to a JSON file and
-    deserializes JSON file to instances.
+    """A class FileStorage that serializes instances to a JSON file and
+       deserializes JSON file to instances.
 
-    Attributes:
-    __file_path (str): is the file name of a file where to save objects
-    __objects (dict): is a dictionary of instantiated objects
+       Attributes:
+       __file_path (str): is the file name of a file where to save objects
+       __objects (dict): is a dictionary of instantiated objects
     """
     __file_path = "file.json"
     __objects = {}
-
-    classes = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Place": Place,
-            "Review": Review
-            }
 
     def all(self):
         """A function to return dictionary __objects."""
@@ -63,7 +52,7 @@ class FileStorage:
         Otherwise, do nothing.
         """
         try:
-            with open(FileStorage.__file_path, mode="r") as f:
+            with open(FileStorage.__file_path) as f:
                 # This load JSON data from file
                 ldd_obj = json.load(f)
 
@@ -77,5 +66,5 @@ class FileStorage:
                     # & pass remaining dictionary as keward arguments
                     self.new(eval(cls_name)(**ob))
 
-        except Exception:
-            pass
+        except FileNotFoundError:
+            return
