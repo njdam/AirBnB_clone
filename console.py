@@ -149,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
            Usage: destroy <class> <id> or <class>.destroy(<id>)
         """
         args = parser(arg)
-        obj_dict = starage.all()
+        obj_dict = storage.all()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
