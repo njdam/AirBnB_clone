@@ -56,12 +56,13 @@ class HBNBCommand(cmd.Cmd):
                 "destroy": self.do_destroy,
                 "update": self.do_update,
                 "all": self.do_all,
+                "count": self.do_count,
                 }
 
         matched = re.search(r"\.", arg)
         if matched is not None:
             args = [arg[:matched.span()[0]], arg[matched.span()[1]:]]
-            matched = re.search(r"\((.*?)\)", arg_list[1])
+            matched = re.search(r"\((.*?)\)", args[1])
             if matched is not None:
                 cmds = [args[1][:matched.span()[0]], matched.group()[1:-1]]
                 if cmds[0] in arg_dict.keys():
@@ -111,11 +112,16 @@ class HBNBCommand(cmd.Cmd):
            Usage: count <class> or <class>.count()
         """
         args = parser(arg)
-        count = 0
-        for obj in storage.all().values():
-            if args[0] == obj.__class__.__name__:
-                count += 1
-        print(count)
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        else:
+            count = 0
+            for obj in storage.all().values():
+                if args[0] == obj.__class__.__name__:
+                    count += 1
+            print(count)
 
     def do_show(self, arg):
         """This command prints the string representation of an instance
@@ -124,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
            Usage: show <class> <id> or <class>.show(<id>)
         """
         args = parser(arg)
-        obj_dict = starage.all()
+        obj_dict = storage.all()
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
