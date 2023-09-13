@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# A file that bear a class City inherited from class BaseModel.
+"""A file that bear a class City inherited from class BaseModel."""
 
 from models.base_model import BaseModel
 

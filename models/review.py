@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# A file that bear class Review and inherited from class BaseModel.
+"""A file that bear class Review and inherited from class BaseModel."""
 
 from models.base_model import BaseModel
 

@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# A file with class User that inherits from BaseModel
+"""A file with class User that inherits from BaseModel"""
 
 from models.base_model import BaseModel
 
